@@ -1,0 +1,13 @@
+﻿.rowcount-div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #F5F5F5;
+    color: #080808;
+    height: 20px;
+    width: 50%;
+}
+
+.rowcount-label {
+    margin: 4px;
+}
