@@ -1,8 +1,13 @@
-﻿(function ($) {
+﻿/*
+  Add a row count label after the grid container
+*/
+(function ($) {
   $.extend(true, window, {
-    "Ext": {
-      "Plugins": {
-        "RowCountLabel": RowCountLabel
+    "Slick": {
+      "Ext": {
+        "Plugins": {
+          "RowCountLabel": RowCountLabel
+        }
       }
     }
   });
@@ -13,6 +18,7 @@
         dataView,
         handler = new Slick.EventHandler(),
         label = labelElem,
+        labelDiv,
         totalRows;
 
     function init(g) {
@@ -24,17 +30,18 @@
       }
 
       if (!label) {
-        label = $("<label />").addClass("rowcount-label")
-        $("<div />").addClass("rowcount-div").append(label).insertAfter($("#" + grid.getContainerNode().id));
+        label = $("<label />").addClass("rowcount-label");
+        labelDiv = $("<div />").addClass("rowcount-div");
+        labelDiv.append(label).insertAfter($("#" + grid.getContainerNode().id));
       }
 
-      // TODO - will this fire when adding or deleting row?
       handler.subscribe(dataView.onRowCountChanged, handleRowCountChanged);
-      grid.setColumns(grid.getColumns());
     }
 
     function destroy() {
       handler.unsubscribeAll();
+      label.remove();
+      labelDiv.remove();
     }
 
     function handleRowCountChanged(e, args) {
